@@ -35,6 +35,9 @@
 
         $("#autocomplete-ajax").select2(remoteDataConfig);
 
+        // get value of select2 field
+        var selected = $('#autocomplete-ajax').select2('data') !== null?$('#autocomplete-ajax').select2('data').desc:'';
+
     });
 
 </script>
