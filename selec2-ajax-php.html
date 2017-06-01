@@ -1,0 +1,53 @@
+<!-- HTML -->
+<input type="text" name="client" id="autocomplete-ajax" class="form-control" attr-type="client">
+
+<!-- Script -->
+<script src="path-to-select2-js-file"></script>
+<script>
+    $(document).ready(function () {
+
+        // Remote data example
+        var remoteDataConfig = {
+            placeholder: "Search for an option...",
+            minimumInputLength: 2,
+            ajax: {
+                url: 'url-pointing-to-server-file-for-matching-data-response',
+                dataType: 'json',
+                data: function (term) {
+                    return {
+                        searchTerm: term,
+                        search_by: $(this).attr('attr-type')  // optional if additional data to pass
+                    };
+                },
+                results: function (data) {
+                    return {
+                        results: data
+                    };
+                }
+            },
+            formatResult: function (option) {
+                return "<div>" + option.desc + "</div>";
+            },
+            formatSelection: function (option) {
+                return option.desc;
+            }
+        };
+
+        $("#autocomplete-ajax").select2(remoteDataConfig);
+
+    });
+
+</script>
+
+<!-- PHP -->
+return [
+    [
+        'id' => 11,
+        'desc' => 'Option 1',
+    ],
+    [
+        'id' => 12,
+        'desc' => 'Option 2',
+    ],
+    ...
+];
